@@ -1,0 +1,21 @@
+# https://pimylifeup.com/raspberry-pi-light-sensor/
+
+import RPi.GPIO as GPIO
+
+pin_to_circuit = 7
+
+def is_open() -> bool:
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(pin_to_circuit, GPIO.IN)
+    return GPIO.input(pin_to_circuit) == GPIO.HIGH
+
+if __name__ == '__main__':
+    from time import sleep
+    try:
+        while True:
+            print(f'Lights are {"on" if GPIO.input(pin_to_circuit) else "off"}.')
+            sleep(1)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        GPIO.cleanup()
