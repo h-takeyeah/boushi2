@@ -4,10 +4,16 @@ import RPi.GPIO as GPIO
 
 pin_to_circuit = 7
 
+
 def is_open() -> bool:
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(pin_to_circuit, GPIO.IN)
     return GPIO.input(pin_to_circuit) == GPIO.HIGH
+
+
+def cleanup() -> None:
+    return GPIO.cleanup()
+
 
 if __name__ == '__main__':
     from time import sleep
@@ -18,4 +24,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         pass
     finally:
-        GPIO.cleanup()
+        cleanup()

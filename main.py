@@ -3,8 +3,9 @@ from typing import Any, Dict, Optional
 
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
-from slack_bolt.context.ack.ack import Ack
-from slack_bolt.context.respond.respond import Respond
+from slack_bolt.context.ack import Ack
+from slack_bolt.context.respond import Respond
+from slack_bolt.error import BoltError
 
 import light_sensor
 
@@ -64,5 +65,10 @@ def handle_dismiss_action(ack: Ack, respond: Respond) -> None:
 
 
 if __name__ == '__main__':
-    handler = SocketModeHandler(app, os.environ.get('SLACK_APP_TOKEN'))
-    handler.start()
+    try:
+        handler = SocketModeHandler(app, os.environ.get('SLACK_APP_TOKEN'))
+        handler.start()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        light_sensor.cleanup()
