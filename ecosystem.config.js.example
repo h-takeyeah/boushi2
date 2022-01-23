@@ -2,7 +2,7 @@ module.exports = {
   apps: [{
     name: 'boushi2',
     script: 'main.py',
-    interpreter: 'python3',
+    interpreter: '.venv/bin/python',
     interpreter_args: '-u',
     watch: false,
     restart_delay: 1000,
