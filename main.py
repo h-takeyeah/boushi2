@@ -66,6 +66,7 @@ def handle_dismiss_action(ack: Ack, respond: Respond) -> None:
 
 if __name__ == '__main__':
     try:
+        light_sensor.setup_gpio()
         handler = SocketModeHandler(app, os.environ.get('SLACK_APP_TOKEN'))
         handler.start()
     except KeyboardInterrupt:
